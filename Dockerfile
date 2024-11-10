@@ -2,11 +2,11 @@ FROM ubuntu:24.04 as builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt update && \
-    apt install -y curl xz-utils
+RUN apt-get update && \
+    apt-get install -y curl xz-utils
 
 # Preinstall n
-RUN apt install -y nodejs npm && \
+RUN apt-get install -y nodejs npm && \
     npm install --global n
 
 # Preinstall uv
@@ -46,8 +46,8 @@ COPY --from=builder /usr/local/bin/shfmt /usr/local/bin/shfmt
 COPY --from=builder /usr/local/bin/shellcheck /usr/local/bin/shellcheck
 
 
-RUN apt update && \
-    apt install -y curl neovim
+RUN apt-get update && \
+    apt-get install -y curl neovim git make
 
 RUN n ${NODE_VERSION} && \
     npm install -g ls-lint prettier
